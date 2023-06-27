@@ -1,0 +1,376 @@
+m255
+K4
+z2
+!s11f MIXED_VERSIONS
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/modeltech64_2020.4/examples
+T_opt
+!s110 1687886449
+VS[8G4GF7Jf[MQJCjWbJ<T1
+Z1 04 9 4 work TestBench fast 0
+=1-a46bb69a344f-649b1a71-139-322c
+Z2 o-quiet -auto_acc_if_foreign -work work +acc
+Z3 tCvgOpt 0
+n@_opt
+Z4 OL;O;2020.4;71
+R0
+T_opt1
+!s110 1687899168
+V<8]O[M^cYgDdPKKUb1gWV2
+R1
+=1-a46bb69a344f-649b4c1f-39d-3608
+R2
+R3
+n@_opt1
+R4
+T_opt2
+!s110 1687885122
+V5I^7=AYA;cHD<RWB1GH]M2
+R1
+=1-a46bb69a344f-649b1542-e-4728
+o-quiet -auto_acc_if_foreign -work work
+R3
+n@_opt2
+R4
+R0
+vADD
+Z5 !s110 1687899154
+!i10b 1
+!s100 9oDkjV=aM`UNd@`O_1YL82
+Z6 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I6RM9Mb7662RWOhN:Hk1TW0
+Z7 dC:/Users/payam/Desktop/DSD_PROJECT/modelsim
+Z8 w1687899151
+Z9 8C:/Users/payam/Desktop/DSD_PROJECT/modelsim/LDC.v
+Z10 FC:/Users/payam/Desktop/DSD_PROJECT/modelsim/LDC.v
+!i122 99
+L0 339 7
+Z11 VDg1SIo80bB@j0V0VzS_@n1
+Z12 OL;L;2020.4;71
+r1
+!s85 0
+31
+Z13 !s108 1687899154.000000
+Z14 !s107 C:/Users/payam/Desktop/DSD_PROJECT/modelsim/LDC.v|
+Z15 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/payam/Desktop/DSD_PROJECT/modelsim/LDC.v|
+!i113 0
+Z16 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R3
+n@a@d@d
+vCONTROLUNIT
+R5
+!i10b 1
+!s100 =;F0]B19^P05i7?KR<6Ng0
+R6
+ITA_VO5b:>o]U9VGi8DQ<=1
+R7
+R8
+R9
+R10
+!i122 99
+L0 119 64
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@c@o@n@t@r@o@l@u@n@i@t
+vCOUNTER
+R5
+!i10b 1
+!s100 RFUKWJd<k43IBUELhM0NG0
+R6
+I0zj55W:W3LzSNdfPTON?E0
+R7
+R8
+R9
+R10
+!i122 99
+L0 283 18
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@c@o@u@n@t@e@r
+vDATAPATH
+R5
+!i10b 1
+!s100 ?mKF@93S>[ALG11IURiz01
+R6
+Ig?EP>`ZzN2NWM1jeLYYz43
+R7
+R8
+R9
+R10
+!i122 99
+L0 184 42
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@d@a@t@a@p@a@t@h
+vDISTANCE
+R5
+!i10b 1
+!s100 7RGo<j=;bahiX[[KH1oeG0
+R6
+IW9zK[o`GS:<lS0`9nZc4=0
+R7
+R8
+R9
+R10
+!i122 99
+L0 347 11
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@d@i@s@t@a@n@c@e
+vDONE
+R5
+!i10b 1
+!s100 lC:0?E?OfV;PMOSKS=mgI3
+R6
+I^PBVcn?@RWD^ElQOTGaZU3
+R7
+R8
+R9
+R10
+!i122 99
+L0 246 16
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@d@o@n@e
+vEXP
+R5
+!i10b 1
+!s100 J0V]?gH2`HPd1Ln[YSn:51
+R6
+Im?TXMF_Vj7nE?LY6njDCV2
+R7
+R8
+R9
+R10
+!i122 99
+L0 359 14
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@e@x@p
+vLDC
+R5
+!i10b 1
+!s100 z^Xei2OR<o`LCe8LP`9oU1
+R6
+IIRJJaHekbOjUm[NGG?>_A2
+R7
+R8
+R9
+R10
+!i122 99
+L0 88 31
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@l@d@c
+vMULT
+R5
+!i10b 1
+!s100 Q=`MZTa:8B`0iUUjNHZ1U3
+R6
+I54JN6?L2R@bgij[22W2FC3
+R7
+R8
+R9
+R10
+!i122 99
+L0 314 24
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@m@u@l@t
+vMUX
+R5
+!i10b 1
+!s100 djWe1dHZdTL=mf;nfJbL>3
+R6
+IcQMOWF??DILeE3cdzn[1X3
+R7
+R8
+R9
+R10
+!i122 99
+L0 228 17
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@m@u@x
+vPOWER
+R5
+!i10b 1
+!s100 @f:35FfZ^Hk<P=<^5eWVE0
+R6
+ICaLb<RGE3ghnD_cbJJDZd1
+R7
+R8
+R9
+R10
+!i122 99
+L0 302 11
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@p@o@w@e@r
+vROM
+R5
+!i10b 1
+!s100 Z750oe_=d2[>^hWU[U^?I2
+R6
+IVF;FK?KoCFdGUXa9AFVKR1
+R7
+R8
+R9
+R10
+!i122 99
+L0 264 18
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@r@o@m
+vTERM
+R5
+!i10b 1
+!s100 ZUZfkZR[=?A4NnlG7BN>k1
+R6
+I4LP>DjS>?U51NTzi?G1hz3
+R7
+R8
+R9
+R10
+!i122 99
+L0 374 14
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@t@e@r@m
+vTestBench
+R5
+!i10b 1
+!s100 S>L65MlRo::QfzW[k[RO61
+R6
+I2eY:OZFP8fN5o6EFcgASG1
+R7
+R8
+R9
+R10
+!i122 99
+L0 1 85
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+n@test@bench

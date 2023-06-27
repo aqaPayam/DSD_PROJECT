@@ -1,0 +1,44 @@
+# Run :x = 0000100000000000 , v = 0000100000000000 
+#  Result = 0000010001010010 
+#  expected result = 0000010001010010,  
+#  
+# in decimal form [HAME ADADI KE INJA CHAP SHODAN BAYAD TAGHSIM BAR 2048 BESHAN]
+# Run :x =  2048 , v =  2048 
+#  Result =  1106 
+#  expected result =  1106,  
+#  
+# Run :x = 0001000011000001 , v = 0000100000000000 
+#  Result = -0000010000010010 
+#  expected result = -0000001111111111,  
+#  
+# in decimal form [HAME ADADI KE INJA CHAP SHODAN BAYAD TAGHSIM BAR 2048 BESHAN]
+# Run :x =  4289 , v =  2048 
+#  Result = - 1042 
+#  expected result = - 1023,  
+#  
+# Run :x = 0000100000000000 , v = 0010100000000000 
+#  Result = 0001010110011010 
+#  expected result = 0001010110011100,  
+#  
+# in decimal form [HAME ADADI KE INJA CHAP SHODAN BAYAD TAGHSIM BAR 2048 BESHAN]
+# Run :x =  2048 , v = 10240 
+#  Result =  5530 
+#  expected result =  5532,  
+#  
+# Run :x = 0000000000000000 , v = 0000101101001101 
+#  Result = 0000101101001101 
+#  expected result = 0000101101001101,  
+#  
+# in decimal form [HAME ADADI KE INJA CHAP SHODAN BAYAD TAGHSIM BAR 2048 BESHAN]
+# Run :x =     0 , v =  2893 
+#  Result =  2893 
+#  expected result =  2893,  
+#  
+# Run :x = 0000110010010000 , v = 0000100000000000 
+#  Result = -0000000000000111 
+#  expected result = 0000000000000001,  
+#  
+# in decimal form [HAME ADADI KE INJA CHAP SHODAN BAYAD TAGHSIM BAR 2048 BESHAN]
+# Run :x =  3216 , v =  2048 
+#  Result = -    7 
+#  expected result =     1,  

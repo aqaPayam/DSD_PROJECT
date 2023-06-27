@@ -1,0 +1,389 @@
+module TestBench;
+
+reg [15:0] x,v;
+reg rst,clk,start;
+wire done;
+wire [15:0] distance;
+
+LDC  ldc (clk,rst,start,x,v,done,distance);
+
+
+initial
+begin
+$dumpfile("LDC.vcd");
+$dumpvars(0, TestBench);
+end
+
+always #10 clk = ~clk;
+
+initial
+begin
+clk = 0 ;
+rst=0;
+#5;
+rst = 1; 
+#15;
+rst = 0;
+
+//test(x,v,expected[vcos(x)])
+//x v expected ~ fixed point 5_11 means ral number should multiply by 2048 
+
+test (16'd2048,16'd2048,16'd1106);
+//cos(p/3)
+test (16'd4289,16'd2048,-16'd1023);
+//cos(2p/3)
+test (16'd2048,16'd10240,16'd5532);
+//5cos(p/3)
+test (16'd0,16'd2893,16'd2893);
+//xcos(0)
+test (16'd3216,16'd2048,16'd1);
+//cos(p/2)
+
+
+
+
+$stop;
+
+end
+
+task test(
+input [15:0] xx,vv,dd
+);
+begin
+	x = xx;
+    v = vv;
+    #5;
+    start = 1;
+    #20;
+    start = 0;
+    #355;
+    if(distance[15] == 1 && dd[15]==1) begin
+        $display ("Run :x = %b , v = %b \n Result = -%b \n expected result = -%b,  \n ",x,v,-distance,-dd);
+        $display ("in decimal form [HAME ADADI KE INJA CHAP SHODAN BAYAD TAGHSIM BAR 2048 BESHAN]");
+        $display ("Run :x = %d , v = %d \n Result = -%d \n expected result = -%d,  \n ",x,v,-distance,-dd);
+    end
+    else if(distance[15] == 0 && dd[15]==1) begin
+        $display ("Run :x = %b , v = %b \n Result = %b \n expected result = %b,  \n ",x,v,distance,dd);
+        $display ("in decimal form [HAME ADADI KE INJA CHAP SHODAN BAYAD TAGHSIM BAR 2048 BESHAN]");
+        $display ("Run :x = %d , v = %d \n Result = %d \n expected result = %d,  \n ",x,v,distance,dd);
+    end
+    else if(distance[15] == 1 && dd[15]==0) begin
+        $display ("Run :x = %b , v = %b \n Result = %b \n expected result = %b,  \n ",x,v,distance,dd);
+        $display ("in decimal form [HAME ADADI KE INJA CHAP SHODAN BAYAD TAGHSIM BAR 2048 BESHAN]");
+        $display ("Run :x = %d , v = %d \n Result = %d \n expected result = %d,  \n ",x,v,distance,dd);
+    end
+    else if(distance[15] == 0 && dd[15]==0) begin
+        $display ("Run :x = %b , v = %b \n Result = %b \n expected result = %b,  \n ",x,v,distance,dd);
+        $display ("in decimal form [HAME ADADI KE INJA CHAP SHODAN BAYAD TAGHSIM BAR 2048 BESHAN]");
+        $display ("Run :x = %d , v = %d \n Result = %d \n expected result = %d,  \n ",x,v,distance,dd);
+    end
+    
+
+end
+endtask
+
+endmodule
+
+
+module LDC(
+    input clk,
+    input rst,
+    input start,
+    input [15:0]x,
+    input [15:0]v,
+    output done,
+    output [15:0]distance
+);
+wire s_done;
+wire r_done;
+wire inc_counter;
+wire r_counter;
+wire load_pow;
+wire [1:0]select_mult;
+wire reset_to_one_term;
+wire load_term;
+wire load_exp;
+wire r_exp;
+wire load_distance;
+wire c;
+wire asyncRst;
+
+CONTROLUNIT cu(clk,s_done,r_done,inc_counter,r_counter,load_pow,select_mult,
+reset_to_one_term,load_term,load_exp,r_exp,load_distance,c,start,rst,asyncRst);
+
+DATAPATH dp(clk,s_done,r_done,inc_counter,r_counter,load_pow,select_mult,
+reset_to_one_term,load_term,load_exp,r_exp,load_distance,c,x,v,done,distance,asyncRst);
+
+
+endmodule
+module CONTROLUNIT(
+    input clk,
+    output s_done,
+    output r_done,
+    output inc_counter,
+    output r_counter,
+    output load_pow,
+    output [1:0]select_mult,
+    output reset_to_one_term,
+    output load_term,
+    output load_exp,
+    output r_exp,
+    output load_distance,
+    input c,
+    input s,
+    input rst,
+    output asyncRst
+);
+reg [2:0]state;
+assign s_done = (state==5) ? 1:0 ;
+assign r_done = (state==2) ? 1:0;
+assign asyncRst = (rst==1) ? 1:0;
+assign inc_counter = (state==4) ? 1:0;
+assign r_counter =  (state==2) ? 1:0;
+assign load_pow = (state==2) ? 1:0;
+assign reset_to_one_term = (state==2) ? 1:0;
+assign load_term =(state==3 | state==4) ? 1:0;
+assign load_exp = (state==3) ? 1:0 ;
+assign r_exp = (state==2) ? 1:0 ;
+assign load_distance = (state==5) ? 1:0 ;
+assign select_mult[0] = (state==3 | state==5) ? 1:0;
+assign select_mult[1] = (state==4 | state==5) ? 1:0;
+
+always @(posedge clk,posedge rst) begin
+    if (rst == 1)
+        state <= 0;
+    else if (state==0)begin
+        if(s==1)
+            state <= 1;
+        else 
+            state <= 0;
+        end
+    else if (state==1)begin
+        if(s==1)
+            state <= 1;
+        else 
+            state <= 2;
+        end
+    else if (state==2)
+        state <= 3;
+    else if (state==3)begin
+        if(c==1)
+            state <= 5;
+        else 
+            state <= 4;
+        end
+    else if (state==4)
+        state <= 3;
+    else if (state==5)
+        state <= 0;
+    
+end
+
+endmodule
+
+module DATAPATH(
+    input clk,
+    input s_done,
+    input r_done,
+    input inc_counter,
+    input r_counter,
+    input load_pow,
+    input [1:0]select_mult,
+    input reset_to_one_term,
+    input load_term,
+    input load_exp,
+    input r_exp,
+    input load_distance,
+    output c,
+    input [15:0]x,
+    input [15:0]v,
+    output done,
+    output [15:0]distance,
+    input asyncRst
+);
+wire [2:0]count;
+wire [15:0]rom;
+wire [15:0]mult;
+wire [15:0]pow;
+wire [15:0]term;
+wire [15:0]sum;
+wire [15:0]exp;
+wire [15:0]muxo1,muxo2;
+
+DONE mydone(s_done,r_done,clk,done,asyncRst);
+COUNTER counter(clk,inc_counter,r_counter,count,c);
+POWER power(clk,mult,load_pow,pow);
+ROM myrom(count,rom);
+MUX mux1(select_mult,x,rom,pow,exp,muxo1);
+MUX mux2(select_mult,x,term,term,v,muxo2);
+MULT mymult(muxo1,muxo2,mult);
+ADD add(term,exp,sum);
+TERM myterm(clk,mult,load_term,reset_to_one_term,term);
+DISTANCE mydistance(clk,mult,load_distance,distance);
+EXP myexp(clk,sum,load_exp,r_exp,exp);
+
+endmodule
+
+
+module MUX(
+    input [1:0] select,
+    input [15:0]a,
+    input [15:0]b,
+    input [15:0]c,
+    input [15:0]d,
+    output reg [15:0] out
+);
+always @(*) begin
+    case (select)
+        2'b00: out = a;
+        2'b01: out = b;
+        2'b10: out = c;
+        2'b11: out = d;
+    endcase
+end
+endmodule
+
+module DONE(
+    input s,
+    input r,
+    input clk,
+    output reg done,
+    input asyncRst
+);
+always @(posedge clk,posedge asyncRst) begin
+    if(asyncRst==1)
+        done <=0;
+    else if(s==1)
+        done <= 1;
+    else if(r==1)
+        done <= 0;  
+end
+endmodule
+
+
+module ROM(
+    input [2:0] select ,
+    output reg [15:0] out
+);
+always @(*) begin
+    case (select)
+        3'b000: out = -16'd1024;
+        3'b001: out =  -16'd170;
+        3'b010: out =  -16'd68;
+        3'b011: out =  -16'd36;
+        3'b100: out =  -16'd23;
+        3'b101: out =  -16'd16;
+        3'b110: out =  -16'd11;
+        default: out =  0;
+    endcase
+    
+end
+endmodule
+
+module COUNTER(
+    input clk,
+    input inc,
+    input r,
+    output reg [2:0] count,
+    output c
+);
+
+assign c = (count==7) ? 1 : 0 ;
+
+always @(posedge clk) begin
+    if (inc == 1)
+        count <= count + 1;
+    if (r == 1)
+        count <= 0;
+
+end
+endmodule
+
+module POWER(
+    input clk,
+    input [15:0]in,
+    input load,
+    output reg [15:0] pow
+);
+always @(posedge clk) begin
+    if (load == 1)
+        pow <= in;
+end
+endmodule
+
+module MULT(
+    input [15:0]x,
+    input [15:0]y,
+    output reg [15:0] res
+);
+reg sign;
+reg [31:0] tmp;
+reg [15:0]xx;
+reg [15:0]yy;
+
+always @(*) begin
+    xx=x;
+    yy=y;
+    if(x[15]==1)
+        xx = -x;
+    if(y[15]==1)
+        yy = -y;
+    sign = x[15] ^ y[15];
+    tmp = yy * xx;
+    if (sign == 1)
+        tmp = -tmp;
+    res = tmp[26:11];
+end
+endmodule
+
+module ADD(
+    input [15:0]x,
+    input [15:0]y,
+    output [15:0] res
+);
+assign res = x + y;
+endmodule
+
+module DISTANCE(
+    input clk,
+    input [15:0]x,
+    input load_distance,
+    output reg [15:0] distance
+);
+always @(posedge clk) begin
+    if (load_distance == 1)
+        distance <= x ;
+end
+endmodule
+
+module EXP(
+    input clk,
+    input [15:0]in,
+    input load,
+    input r,
+    output reg [15:0] exp
+);
+always @(posedge clk) begin
+    if (load == 1)
+        exp <= in;
+    if(r == 1)
+        exp <= 0;
+end
+endmodule
+
+module TERM(
+    input clk,
+    input [15:0]in,
+    input load,
+    input reset_to_one,
+    output reg [15:0] term
+);
+always @(posedge clk) begin
+    if (reset_to_one == 1)
+        term <= 16'd2048;
+    if(load == 1)
+        term <= in;
+end
+endmodule
+
+
